@@ -189,7 +189,7 @@ func main(cmd *cobra.Command, args []string) error {
 
 	config := AtlantisConfig{
 		Version:   3,
-		AutoMerge: false,
+		AutoMerge: autoMerge,
 	}
 
 	for _, terragruntPath := range terragruntFiles {
@@ -224,6 +224,7 @@ func main(cmd *cobra.Command, args []string) error {
 
 var gitRoot string
 var autoPlan bool
+var autoMerge bool
 var ignoreParentTerragrunt bool
 var workflow string
 var outputPath string
@@ -245,6 +246,7 @@ func init() {
 	}
 
 	generateCmd.PersistentFlags().BoolVar(&autoPlan, "autoplan", false, "Enable auto plan. Default is disabled")
+	generateCmd.PersistentFlags().BoolVar(&autoMerge, "automerge", false, "Enable auto merge after succesfull apply. Default is disabled")
 	generateCmd.PersistentFlags().BoolVar(&ignoreParentTerragrunt, "ignore-parent-terragrunt", false, "Ignore parent terragrunt configs (those which don't reference a terraform module). Default is disabled")
 	generateCmd.PersistentFlags().StringVar(&workflow, "workflow", "", "Name of the workflow to be customized in the atlantis server. Default is to not set")
 	generateCmd.PersistentFlags().StringVar(&outputPath, "output", "", "Path of the file where configuration will be generated. Default is not to write to file")
